@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
 
-const pages = [{name:'Products',href:'/product'}];
+const pages = [{name:'Products',href:'/product'},{name:'Dashboard',href:'/dashboard'}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavBar() {
@@ -30,7 +30,6 @@ const navigate=useNavigate()
 
   const handleCloseNavMenu = (page) => {
     navigate(page?.href)
-    console.log('page',page)
     setAnchorElNav(null);
   };
 
@@ -39,7 +38,7 @@ const navigate=useNavigate()
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className='navbar'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
