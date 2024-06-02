@@ -1,40 +1,66 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import AddEditProduct from "../components/Dialogs/AddandEditProducts";
+import DeleteProduct from "../components/Dialogs/deleteProduct";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 50, maxwidth:70 },
+  {
+    field: "id",
+    headerName: "ID",
+    width: 50,
+    maxwidth: 70,
+    minWidth: 70,
+    sortable: false,
+  },
   {
     field: "name",
     headerName: "Product name",
     width: 200,
-    maxwidth:250
+    maxwidth: 250,
+    minWidth: 250,
+    sortable: false,
   },
   {
     field: "company",
     headerName: "Invented By",
     width: 200,
-    maxwidth:250
+    maxwidth: 250,
+    minWidth: 250,
+    sortable: false,
   },
   {
     field: "price",
     headerName: "Price",
     width: 200,
-    maxwidth:230
+    maxwidth: 230,
+    minWidth: 250,
+    sortable: false,
   },
   {
     field: "quantity",
     headerName: "Quantity",
     width: 200,
-    maxwidth:250
-  },{
+    maxwidth: 250,
+    minWidth: 150,
+    sortable: false,
+  },
+  {
     field: "action",
     headerName: "Action",
-    width: 100,
-    maxwidth:100
-  }
+    maxwidth: 150,
+    minWidth: 150,
+    sortable: false,
+    renderCell: (row) => {
+      return (
+        <Box display="flex" justifyContent="space-evenly">
+          <AddEditProduct row={row} />
+          <DeleteProduct />
+        </Box>
+      );
+    },
+  },
 ];
 
 const rows = [
@@ -59,7 +85,14 @@ export default function AdminDashboard() {
         lg={10}
         columnGap={2}
         rowSpacing={2}
-        sx={{ p: 5, mt: 2, backgroundColor: "#c2e3fc" ,position:'sticky'}}
+        sx={{
+          p: 5,
+          mt: 2,
+          mb: 2,
+          backgroundColor: "#c2e3fc",
+          boxShadow:
+            "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+        }}
         display="grid"
       >
         <Grid item>
@@ -68,24 +101,34 @@ export default function AdminDashboard() {
               <Typography variant="h5">Manage Products</Typography>
             </Grid>
             <Grid item>
-              <AddEditProduct/>
+              <AddEditProduct />
             </Grid>
           </Grid>
         </Grid>
         <Grid item>
           <DataGrid
             rows={rows}
+            autoHeight
             columns={columns}
+            // pagination
+            // paginationMode="server"
+            disableColumnMenu
+            disableColumnFilter
+            disableColumnSelector
             initialState={{
               pagination: {
                 paginationModel: {
-                  pageSize: 5,
+                  pageSize: 10,
                 },
               },
             }}
             pageSizeOptions={[5]}
             disableRowSelectionOnClick
-            sx={{ backgroundColor: "#f2f8fc" }}
+            sx={{
+              backgroundColor: "#f2f8fc",
+              boxShadow:
+                "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+            }}
           />
         </Grid>
       </Grid>

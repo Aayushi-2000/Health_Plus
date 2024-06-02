@@ -1,4 +1,3 @@
-
 .sticky {
   position: -webkit-sticky; /* For Safari */
   position: sticky;
@@ -7,8 +6,8 @@
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,9 +15,21 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.navbar{
-  background-color: rgba(0, 0, 0, 0.801) !important; 
+.navbar {
+  background-color: rgba(0, 0, 0, 0.801) !important;
+}
+.dialog {
+  padding: 5 !important;
+}
+.background {
+  background-image: url("/public/medical.webp");
+  height: auto;
+  width: 100%;
+  position: sticky;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
 }
