@@ -28,7 +28,6 @@ const AddEditProduct = ({ row }) => {
     control,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {

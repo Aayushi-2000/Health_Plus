@@ -1,37 +1,153 @@
 import React from "react";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import AdbIcon from "@mui/icons-material/Adb";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Controller, useForm } from "react-hook-form";
 
 const LogInPage = () => {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const OnSubmit = (data) => {
+    console.log("data", data);
+    reset({ email: "", password: "" });
+  };
   return (
     <Box className="background">
-      <Box display="flex" justifyContent="center">
+      <Box
+        display="flex"
+        justifyContent="center"
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          alignItems: "center",
+        }}
+      >
         <Card>
-          <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
-              Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div"></Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
+          <form onSubmit={handleSubmit(OnSubmit)}>
+            <CardContent sx={{ p: 5 }}>
+              <Box
+                display="Grid"
+                justifyContent="center"
+                sx={{ pr: 5, pl: 5, pb: 5 }}
+              >
+                <Typography
+                  variant="h5"
+                  fontWeight="bold"
+                  fontFamily="serif"
+                  gutterBottom
+                >
+                  Log in to Health Plus
+                </Typography>
+                <Box display="flex" justifyContent="center">
+                  <AdbIcon
+                    sx={{
+                      display: { xs: "none", md: "flex" },
+                      height: "50px",
+                      width: "50px",
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box>
+                <Grid
+                  container
+                  rowSpacing={3}
+                  display="inline-block"
+                  justifyContent="center"
+                >
+                  <Grid item>
+                    <Controller
+                      name="email"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, ...rest } }) => (
+                        <TextField
+                          label="Email"
+                          {...rest}
+                          value={value}
+                          fullWidth
+                          error={!!errors?.email?.message}
+                          helperText={errors?.email?.message}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Controller
+                      name="password"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, ...rest } }) => (
+                        <TextField
+                          {...rest}
+                          value={value}
+                          error={!!errors?.password?.message}
+                          helperText={errors?.password?.message}
+                          label="Password"
+                          fullWidth
+                          type={showPassword ? "text" : "password"}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton
+                                  onClick={handleClickShowPassword}
+                                  onMouseDown={handleMouseDownPassword}
+                                  edge="end"
+                                >
+                                  {showPassword ? (
+                                    <VisibilityOff />
+                                  ) : (
+                                    <Visibility />
+                                  )}
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+            </CardContent>
+            <CardActions sx={{ pb: 5 }}>
+              <Grid
+                container
+                spacing={2}
+                display="flex"
+                justifyContent="center"
+              >
+                <Grid>
+                  <Button variant="contained" size="medium" type="submit">
+                    Log In
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardActions>
+          </form>
         </Card>
       </Box>
     </Box>
