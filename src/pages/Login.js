@@ -14,7 +14,18 @@ import Typography from "@mui/material/Typography";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Controller, useForm } from "react-hook-form";
-
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Email is required")
+    .matches(
+      /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+      "Invalid email"
+    ),
+  password: yup.string().required("PassWord is required"),
+});
 const LogInPage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -23,7 +34,7 @@ const LogInPage = () => {
     control,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -118,9 +129,9 @@ const LogInPage = () => {
                                   edge="end"
                                 >
                                   {showPassword ? (
-                                    <VisibilityOff />
-                                  ) : (
                                     <Visibility />
+                                  ) : (
+                                    <VisibilityOff />
                                   )}
                                 </IconButton>
                               </InputAdornment>

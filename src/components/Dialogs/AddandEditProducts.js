@@ -5,6 +5,7 @@ import {
   DialogActions,
   DialogContent,
   Grid,
+  Switch,
   TextField,
   Typography,
 } from "@mui/material";
@@ -15,19 +16,26 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { EditNoteOutlined } from "@mui/icons-material";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Product Name is required"),
-  inventedBy: yup.string().required("Invented by is required"),
+  name: yup
+    .string()
+    .required("Product Name is required")
+    ?.matches(/^[a-zA-Z ]+$/, "Invalid name only characters allowed"),
+  inventedBy: yup
+    .string()
+    .required("Invented by is required")
+    .matches(/^[a-zA-Z ]+$/, "Invalid Invented by only characters allowed"),
   quantity: yup.string().required("Quantity is required "),
   price: yup.string().required("Price is required"),
 });
 const AddEditProduct = ({ row }) => {
   const data = row?.row;
-
   const [open, setOpen] = useState(false);
   const {
     control,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -35,9 +43,11 @@ const AddEditProduct = ({ row }) => {
       inventedBy: data ? data?.company : "",
       quantity: data ? data?.quantity : "",
       price: data ? data?.price : "",
+      isActive: data ? data?.isActive : false,
     },
     resolver: yupResolver(schema),
   });
+  const isActive = watch("isActive");
   const handleOpen = () => {
     reset();
     setOpen(true);
@@ -45,7 +55,9 @@ const AddEditProduct = ({ row }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const HandleISActive = () => {
+    setValue("isActive", !isActive);
+  };
   const OnSubmit = (data) => {
     console.log("data", data);
     handleClose();
@@ -140,6 +152,11 @@ const AddEditProduct = ({ row }) => {
                       />
                     )}
                   />
+                </Grid>
+              </Grid>
+              <Grid container sx={12} display="flex" justifyContent="center">
+                <Grid item sx={4}>
+                  <Switch checked={isActive} onChange={HandleISActive} />
                 </Grid>
               </Grid>
             </Grid>
