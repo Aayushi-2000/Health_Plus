@@ -176,26 +176,27 @@ export default function AdminDashboard() {
         columnGap={2}
         rowSpacing={2}
         sx={{
-          p: 5,
+          p: { xs: 2, md: 5, lg: 5 },
           mt: 2,
           mb: 2,
           backgroundColor: "#c2e3fc",
           boxShadow:
             "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         }}
-        display="grid"
       >
-        <Grid item>
-          <Grid container display="flex" justifyContent="space-between">
-            <Grid item>
-              <Typography variant="h5">Manage Products</Typography>
+        <Grid item xs={12} md={12} lg={12}>
+          <Grid container display="flex">
+            <Grid item xs={6}>
+              <Typography variant="h5" sx={{ fontSize: { xs: 14 } }}>
+                Manage Products
+              </Typography>
             </Grid>
-            <Grid item>
+            <Grid item xs={6} display="flex" justifyContent="flex-end">
               <AddEditProduct />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item xs={12} md={12} lg={12}>
           <DataGrid
             rows={rows}
             autoHeight

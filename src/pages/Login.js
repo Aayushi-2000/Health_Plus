@@ -58,11 +58,15 @@ const LogInPage = () => {
       >
         <Card>
           <form onSubmit={handleSubmit(OnSubmit)}>
-            <CardContent sx={{ p: 5 }}>
+            <CardContent sx={{ p: { xs: 1, md: 4, lg: 5 } }}>
               <Box
                 display="Grid"
                 justifyContent="center"
-                sx={{ pr: 5, pl: 5, pb: 5 }}
+                sx={{
+                  pr: { xs: 2, md: 4, lg: 5 },
+                  pl: { xs: 2, md: 4, lg: 5 },
+                  pb: { xs: 2, md: 4, lg: 5 },
+                }}
               >
                 <Typography
                   variant="h5"
@@ -75,9 +79,9 @@ const LogInPage = () => {
                 <Box display="flex" justifyContent="center">
                   <AdbIcon
                     sx={{
-                      display: { xs: "none", md: "flex" },
-                      height: "50px",
-                      width: "50px",
+                      display: { xs: "flex", md: "flex" },
+                      height: { xs: "20px", md: "50px" },
+                      width: { xs: "20px", md: "50px" },
                     }}
                   />
                 </Box>
@@ -144,14 +148,14 @@ const LogInPage = () => {
                 </Grid>
               </Box>
             </CardContent>
-            <CardActions sx={{ pb: 5 }}>
+            <CardActions sx={{ pb: { xs: 2, md: 4, lg: 5 } }}>
               <Grid
                 container
                 spacing={2}
                 display="flex"
                 justifyContent="center"
               >
-                <Grid>
+                <Grid item>
                   <Button variant="contained" size="medium" type="submit">
                     Log In
                   </Button>

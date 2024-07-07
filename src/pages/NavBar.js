@@ -100,19 +100,19 @@ function NavBar() {
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
+              fontFamily: "fantasy",
+              letterSpacing: ".2rem",
               color: "inherit",
               textDecoration: "none",
+              flexGrow: 1,
+              fontWeight: { xs: 400, md: 700 },
             }}
           >
             Health Plus

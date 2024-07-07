@@ -69,7 +69,12 @@ const AddEditProduct = ({ row }) => {
         {row ? (
           <EditNoteOutlined onClick={handleOpen} />
         ) : (
-          <Button variant="contained" size="small" onClick={handleOpen}>
+          <Button
+            variant="contained"
+            size="small"
+            onClick={handleOpen}
+            sx={{ fontSize: { xs: 10 } }}
+          >
             Add Products
           </Button>
         )}
