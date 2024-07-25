@@ -4,6 +4,9 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Chip, Grid, Typography } from "@mui/material";
 import AddEditProduct from "../components/Dialogs/AddandEditProducts";
 import { StatusColor, status } from "../components/common/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProduct } from "../services/Product";
+
 const getStatusType = (statusType) => {
   return statusType ? status?.active : status?.inActive;
 };
@@ -26,7 +29,7 @@ const columns = [
     sortable: false,
   },
   {
-    field: "company",
+    field: "createdby",
     headerName: "Invented By",
     width: 200,
     maxwidth: 250,
@@ -50,8 +53,8 @@ const columns = [
     sortable: false,
   },
   {
-    field: "category",
-    headerName: "Category",
+    field: "tag",
+    headerName: "Tag",
     width: 100,
     maxwidth: 150,
     minWidth: 150,
@@ -90,82 +93,12 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    name: "product",
-    company: "Jon",
-    quantity: 14,
-    price: 230,
-    isActive: false,
-  },
-  {
-    id: 2,
-    name: "Lannister",
-    company: "Cersei",
-    quantity: 31,
-    price: 490,
-    isActive: true,
-  },
-  {
-    id: 4,
-    name: "Stark",
-    company: "Arya",
-    quantity: 11,
-    price: 230,
-    isActive: false,
-  },
-  {
-    id: 5,
-    name: "Targaryen",
-    company: "Daenerys",
-    quantity: null,
-    price: 78,
-    isActive: true,
-  },
-  {
-    id: 3,
-    name: "Lannister",
-    company: "Jaime",
-    quantity: 31,
-    price: 789,
-    isActive: true,
-  },
-  {
-    id: 6,
-    name: "Melisandre",
-    company: null,
-    quantity: 150,
-    price: 90,
-    isActive: false,
-  },
-  {
-    id: 7,
-    name: "Clifford",
-    company: "Ferrara",
-    quantity: 44,
-    price: 890,
-    isActive: false,
-  },
-  {
-    id: 8,
-    name: "Frances",
-    company: "Rossini",
-    quantity: 36,
-    price: 500,
-    isActive: false,
-  },
-  {
-    id: 9,
-    name: "Roxie",
-    company: "Harvey",
-    quantity: 65,
-    price: 600,
-    isActive: false,
-  },
-];
-
-export default function AdminDashboard() {
+function AdminDashboard() {
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.data);
+  React.useEffect(() => {
+    dispatch(fetchProduct());
+  }, []);
   return (
     <Box display="flex" justifyContent="center">
       <Grid
@@ -198,7 +131,7 @@ export default function AdminDashboard() {
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
           <DataGrid
-            rows={rows}
+            rows={product}
             autoHeight
             columns={columns}
             // pagination
@@ -226,3 +159,4 @@ export default function AdminDashboard() {
     </Box>
   );
 }
+export default AdminDashboard;

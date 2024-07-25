@@ -14,6 +14,8 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { EditNoteOutlined } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { addProduct, fetchProduct } from "../../services/Product";
 
 const schema = yup.object().shape({
   name: yup
@@ -30,6 +32,7 @@ const schema = yup.object().shape({
 const AddEditProduct = ({ row }) => {
   const data = row?.row;
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -60,6 +63,16 @@ const AddEditProduct = ({ row }) => {
   };
   const OnSubmit = (data) => {
     console.log("data", data);
+    const payload = {
+      name: data?.name,
+      description: data?.inventedBy,
+      price: data?.price,
+      quantity: data?.quantity,
+      discount: data?.quantity,
+      tag: data?.price,
+    };
+    dispatch(addProduct(payload));
+    dispatch(fetchProduct());
     handleClose();
   };
 
